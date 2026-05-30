@@ -1,0 +1,14 @@
+# Python environment logs
+.venv/
+__pycache__/
+*.pyc
+
+# Node / React dependencies
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+
+# Security keys (Never push secrets!)
+.env
+frontend/.env

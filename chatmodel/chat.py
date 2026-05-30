@@ -1,34 +1,44 @@
+import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from dotenv import load_dotenv
 
+from langchain_mistralai import ChatMistralAI
+from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
+
+# Load environment variables
 load_dotenv()
 
-from langchain_mistralai import ChatMistralAI
-from langchain_core.messages import HumanMessage,SystemMessage,AIMessage
-model = ChatMistralAI(model = "mistral-small-2603",temperature=0.9)
-print("chosse your AI mode")
-print("Press 1 for Angry mode")
-print("Press 2 for Funny mode")
-print("Press 3 for Sad mode")
+app = Flask(__name__)
+CORS(app)  # This allows your local React web interface to connect securely
 
-choice = int(input("Select your mode :"))
-if choice == 1:
-  mode = "You are an angry AI agent. You respond aggressively and impatiently."
-elif choice == 2:
-    mode = "You are a very funny AI agent. You respond with humor and jokes."
-elif choice == 3:
-    mode = "You are a very sad AI agent. You respond in a depressed and emotional tone."
+# Your exact model setup
+model = ChatMistralAI(model="mistral-small-2603", temperature=0.9)
 
+@app.route('/chat', methods=['POST'])
+def chat_endpoint():
+    data = request.json
+    
+    # 1. Grab the system matrix string and conversation array sent from React
+    selected_mode = data.get('mode')
+    user_messages = data.get('messages', [])
+    
+    # 2. Re-compile your messages log array starting with your SystemMessage
+    messages = [SystemMessage(content=selected_mode)]
+    
+    for msg in user_messages:
+        if msg['type'] == 'human':
+            messages.append(HumanMessage(content=msg['content']))
+        elif msg['type'] == 'ai':
+            messages.append(AIMessage(content=msg['content']))
+            
+    try:
+        # 3. Exactly like your original while loop invocation
+        response = model.invoke(messages)
+        return jsonify({"content": response.content})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-messages = [
-  SystemMessage(content = mode)
-]
-print("Welcome ,what's movite today")
-while True:
-  prompt = input('You :')
-  messages.append(HumanMessage(content=prompt))
-  if prompt == "bye":
-    print("Thank you! have a nice day")
-    break
-  response = model.invoke(messages)
-  messages.append(AIMessage(content=response.content))
-  print('bot :',response.content)
+if __name__ == '__main__':
+    # Starts your backend on port 5000
+    app.run(port=5000, debug=True)

@@ -1,0 +1,262 @@
+/* Deep Pure Black Theme */
+:root {
+  --pure-black: #000000;
+  --dark-panel: #0a0a0f;
+  --border-glow: rgba(0, 242, 254, 0.15);
+  --text-main: #ffffff;
+  --text-muted: #777788;
+  --neon-cyan: #00f2fe;
+  --neon-purple: #9b51e0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--pure-black);
+  color: var(--text-main);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* App Layout Grid */
+.app-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Glassmorphic Panels over Black Background */
+.glass-panel {
+  background: var(--dark-panel);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+  animation: panelFadeIn 0.5s ease-out;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mode Selection Profile Setup */
+.mode-container {
+  padding: 40px;
+  text-align: center;
+  width: 400px;
+}
+
+.mode-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+.modes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mode-btn {
+  background: #111116;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 18px;
+  color: var(--text-main);
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+  transform: scale(1.02);
+  background: #161622;
+  box-shadow: 0 0 15px var(--hover-glow);
+  border-color: var(--hover-glow);
+}
+
+/* Chat Layout Box */
+.chat-container {
+  width: 90vw;
+  max-width: 750px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title h3 { margin: 0; font-size: 1.15rem; }
+.header-title p { margin: 4px 0 0; font-size: 0.8rem; color: var(--text-muted); }
+
+/* Interactive Info Button */
+.popup-badge {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.popup-badge:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Message Log Arena */
+.messages-box {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.msg-wrapper {
+  display: flex;
+  width: 100%;
+  animation: bubblePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) both;
+}
+
+@keyframes bubblePop {
+  from { opacity: 0; transform: scale(0.92) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.msg-wrapper.human { justify-content: flex-end; }
+.msg-wrapper.ai { justify-content: flex-start; }
+
+.bubble {
+  padding: 12px 18px;
+  border-radius: 16px;
+  max-width: 70%;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.msg-wrapper.human .bubble {
+  background: #ffffff;
+  color: #000000;
+  border-bottom-right-radius: 2px;
+  font-weight: 500;
+}
+
+.msg-wrapper.ai .bubble {
+  background: #121218;
+  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom-left-radius: 2px;
+}
+
+/* Super Highlighted Text Input Box */
+.input-bar {
+  padding: 20px 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  gap: 12px;
+  background: #020205;
+}
+
+.input-bar input {
+  flex: 1;
+  background: #000000;
+  /* Strong Initial Accent Highlight Border */
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.input-bar input:focus {
+  outline: none;
+  border-color: #ffffff;
+  /* Hyper Glow Effect on Focus */
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.6), 0 0 10px rgba(0, 242, 254, 0.4);
+}
+
+.input-bar button {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 12px;
+  padding: 0 26px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.input-bar button:hover:not(:disabled) {
+  background: #e5e5e5;
+  transform: translateY(-1px);
+}
+
+.input-bar button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Floating Emoji Animations */
+.emoji-bounce {
+  display: inline-block;
+  animation: floatingEmoji 2s ease-in-out infinite alternate;
+  font-size: 1.4rem;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+@keyframes floatingEmoji {
+  0% { transform: translateY(0px) rotate(-5deg); }
+  100% { transform: translateY(-8px) rotate(10deg); }
+}
+
+/* Modal Popup Core Layout */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  padding: 35px;
+  max-width: 380px;
+  text-align: center;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.modal-content h4 { font-size: 1.3rem; margin: 0 0 12px 0; }
+.modal-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
+.modal-close-btn {
+  background: #ffffff;
+  color: #000000; border: none; padding: 12px 28px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s;
+}
+.modal-close-btn:hover { transform: scale(1.03); }
+
+/* Typing Dots */
+.typing-indicator { display: flex; gap: 4px; padding: 6px 8px; }
+.typing-indicator span { width: 6px; height: 6px; background: #fff; border-radius: 50%; animation: wave 1.2s infinite ease-in-out; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.15s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes wave { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
